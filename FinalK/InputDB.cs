@@ -21,9 +21,9 @@ namespace FinalK
 
         public static void addGroup(string groupName)
         {
-            
-        // Проверка наличия записи с таким именем
-        string checkQuery = "SELECT COUNT(*) FROM Группа_фарм_препарата WHERE [Группа фарм препарата] = @GroupName";
+
+            // Проверка наличия записи с таким именем
+            string checkQuery = "SELECT COUNT(*) FROM Группа_фарм_препарата WHERE [Группа фарм препарата] = @GroupName";
             using (SqlCommand checkCommand = new SqlCommand(checkQuery, Connection))
             {
                 checkCommand.Parameters.AddWithValue("@GroupName", groupName);
@@ -247,7 +247,7 @@ namespace FinalK
                 command.Parameters.AddWithValue("@FormId", formId);
                 command.Parameters.AddWithValue("@DosageId", dosageId);
                 command.Parameters.AddWithValue("@ActiveSubstanceId", activeSubstanceId);
- 
+
                 int rowsAffected = command.ExecuteNonQuery();
 
                 // Проверка количества добавленных записей
@@ -261,5 +261,29 @@ namespace FinalK
                 }
             }
         }
+
+
+
+        public static void UpdateSklad(string новоеКоличество, string заданныйКодПрепарата, string заданныйПоставщик)
+        {
+
+
+            string updateQuery = "UPDATE [Склад] SET [Количество] = @НовоеКоличество " +
+                                 "WHERE [Код препарата] = @ЗаданныйКодПрепарата AND [Поставщик] = @ЗаданныйПоставщик";
+
+            using (SqlCommand command = new SqlCommand(updateQuery, Connection))
+            {
+                command.Parameters.AddWithValue("@НовоеКоличество", новоеКоличество);
+                command.Parameters.AddWithValue("@ЗаданныйКодПрепарата", заданныйКодПрепарата);
+                command.Parameters.AddWithValue("@ЗаданныйПоставщик", заданныйПоставщик);
+
+                int rowsAffected = command.ExecuteNonQuery();
+                MessageBox.Show($"Обновлено {rowsAffected} строк.");
+            }
+        }
+
+
+
+    
     }
 }

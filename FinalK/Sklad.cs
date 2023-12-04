@@ -104,6 +104,12 @@ namespace FinalK
 
         
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Realize rz = new Realize();
+            rz.ShowDialog();
+        }
     }
     
 }
